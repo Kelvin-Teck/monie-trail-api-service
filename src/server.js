@@ -10,12 +10,14 @@ import RateLimiter from './middlewares/rateLimiter.js';
 const PORT = process.env.PORT || 5002
 const app = express();
 
+import job from './config/cron.js';
 
+if(process.env.NODE_ENV === 'production') job.start()
 // App Level Middlewares
 app.use(express.json())
 // app.use(RateLimiter)
 //
-app.get("/", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.send(`Server is up and running!!!`);
 });
 
